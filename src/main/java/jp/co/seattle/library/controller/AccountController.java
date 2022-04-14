@@ -32,39 +32,36 @@ public class AccountController {
 	public String createAccount(Model model) {
 		return "createAccount";
 	}
-	
+
 	/**
-     * 新規アカウント作成
-     *
-     * @param email メールアドレス
-     * @param password パスワード
-     * @param passwordForCheck 確認用パスワード
-     * @param model
-     * @return　ホーム画面に遷移
-     */
-	
-    @Transactional
-    @RequestMapping(value = "/createAccount", method = RequestMethod.POST)
-    public String createAccount(Locale locale,
-            @RequestParam("email") String email,
-            @RequestParam("password") String password,
-            @RequestParam("passwordForCheck") String passwordForCheck,
-            Model model) {
-    	
-        // デバッグ用ログ
-        logger.info("Welcome createAccount! The client locale is {}.", locale);
+	 * 新規アカウント作成
+	 *
+	 * @param email            メールアドレス
+	 * @param password         パスワード
+	 * @param passwordForCheck 確認用パスワード
+	 * @param model
+	 * @return ホーム画面に遷移
+	 */
 
-        // パラメータで受け取った書籍情報をDtoに格納する。
-        UserInfo userInfo = new UserInfo();
-        userInfo.setEmail(email);
+	@Transactional
+	@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
+	public String createAccount(Locale locale, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("passwordForCheck") String passwordForCheck,
+			Model model) {
 
-        
-        // TODO バリデーションチェック、パスワード一致チェック実装
+		// デバッグ用ログ
+		logger.info("Welcome createAccount! The client locale is {}.", locale);
+
+		// パラメータで受け取った書籍情報をDtoに格納する。
+		UserInfo userInfo = new UserInfo();
+		userInfo.setEmail(email);
+
+		// TODO バリデーションチェック、パスワード一致チェック実装
 		if (password.length() >= 8 && password.matches("^[0-9a-zA-Z]+$")) {
 
 			if (password.equals(passwordForCheck)) {
-				 userInfo.setPassword(password);
-				 usersService.registUser(userInfo);
+				userInfo.setPassword(password);
+				usersService.registUser(userInfo);
 
 				model.addAttribute("bookList", booksService.getBookList());
 				return "home";
@@ -72,16 +69,17 @@ public class AccountController {
 			} else {
 
 				model.addAttribute("errorPassword", "パスワードが一致しません。");
+
 				return "createAccount";
 
 			}
-			
+
 		} else {
-			
+
 			model.addAttribute("errorPassword", "パスワードは8文字以上かつ半角英数字に設定してください。");
 			return "createAccount";
-		}	
-        
-    }
+		}
+
+	}
 
 }
