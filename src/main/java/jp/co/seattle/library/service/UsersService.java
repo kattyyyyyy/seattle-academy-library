@@ -44,9 +44,19 @@ public class UsersService {
      */
     public UserInfo selectUserInfo(String email, String password) {
         // TODO SQL生成
-        String sql = "";
+        String sql = "select email, password from users where email = '"
+        		+ email
+        		+ "' and password = "
+        		+ "'"
+        		+ password
+        		+ "';";
+        System.out.println(sql);
+//        String sql = "select email, password from users;";
+//        System.out.println(sql);
 
-        UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
+        UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper()); //queryForObjectは1レコードしか取得できない。引数の最後に返り血の方を指定する。その方がUserRowMapperファイルに書いてある
+        System.out.println("----①----");
+        System.out.println(selectedUserInfo);
         return selectedUserInfo;
 
     }
