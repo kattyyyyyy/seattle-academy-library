@@ -3,6 +3,7 @@ package jp.co.seattle.library.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -16,49 +17,48 @@ import jp.co.seattle.library.rowMapper.UserCountRowMapper;
 //APIの入り口 APIとは、他のソフトウェアが外部から自分のソフトウェアへアクセスし利用できるようにしたもの
 //ソフトウェアコンポーネントが互いにやりとりするのに使用するインタフェースの仕様
 public class UsersService {
-    final static Logger logger = LoggerFactory.getLogger(UsersService.class);
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+	final static Logger logger = LoggerFactory.getLogger(UsersService.class);
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
-    /**
-     * ユーザー情報を登録する
-     * @param userInfo ユーザー情報
-     */
-    public void registUser(UserInfo userInfo) {
+	/**
+	 * ユーザー情報を登録する
+	 * 
+	 * @param userInfo ユーザー情報
+	 */
+	public void registUser(UserInfo userInfo) {
 
-        // SQL生成
-        String sql = "INSERT INTO users (email, password,reg_date,upd_date) VALUES ('"
-                + userInfo.getEmail()
-                + "','"
-                + userInfo.getPassword()
-                + "',now(),now()" + ")";
+		// SQL生成
+		String sql = "INSERT INTO users (email, password,reg_date,upd_date) VALUES ('" + userInfo.getEmail() + "','"
+				+ userInfo.getPassword() + "',now(),now()" + ")";
 
-        jdbcTemplate.update(sql);
-    }
+		jdbcTemplate.update(sql);
+	}
 
-    /**
-     * ユーザー情報取得
-     * @param email メールアドレス
-     * @param password パスワード
-     * @return ユーザー情報
-     */
-    public UserInfo selectUserInfo(String email, String password) {
-        // TODO SQL生成
-        String sql = "select email, password from users where email = '"
-        		+ email
-        		+ "' and password = "
-        		+ "'"
-        		+ password
-        		+ "';";
-        System.out.println(sql);
-//        String sql = "select email, password from users;";
-//        System.out.println(sql);
+	/**
+	 * ユーザー情報取得
+	 * 
+	 * @param email    メールアドレス
+	 * @param password パスワード
+	 * @return ユーザー情報
+	 */
+	public UserInfo selectUserInfo(String email, String password) {
 
-        UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper()); //queryForObjectは1レコードしか取得できない。引数の最後に返り血の方を指定する。その方がUserRowMapperファイルに書いてある
-        System.out.println("----①----");
-        System.out.println(selectedUserInfo);
-        return selectedUserInfo;
+		// TODO SQL生成
 
-    }
+		String sql = "select email, password from users where email = '" + email + "' and password = " + "'" + password
+				+ "';";
+		System.out.println(sql);
+
+		try {
+			UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
+			System.out.println(selectedUserInfo);
+			return selectedUserInfo;
+		} catch (EmptyResultDataAccessException e) {
+			UserInfo nullUserInfo = new UserInfo();
+			return nullUserInfo;
+		}
+
+	}
 
 }
