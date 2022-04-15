@@ -69,7 +69,6 @@ public class AccountController {
 			} else {
 
 				model.addAttribute("errorPassword", "パスワードが一致しません。");
-
 				return "createAccount";
 
 			}
