@@ -44,8 +44,6 @@ public class LoginController {
 		// TODO 下記のコメントアウトを外してサービスクラスを使用してください。
 		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
 		// TODO パスワードとメールアドレスの組み合わせ存在チェック実装
-		System.out.println(selectedUserInfo);
-
 		if (selectedUserInfo == null) {
 			model.addAttribute("errorMessage", "メールアドレスとパスワードが存在しません。");
 			return "login";

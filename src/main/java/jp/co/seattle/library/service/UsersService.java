@@ -48,11 +48,8 @@ public class UsersService {
 
 		String sql = "select email, password from users where email = '" + email + "' and password = " + "'" + password
 				+ "';";
-		System.out.println(sql);
-
 		try {
 			UserInfo selectedUserInfo = jdbcTemplate.queryForObject(sql, new UserCountRowMapper());
-			System.out.println(selectedUserInfo);
 			return selectedUserInfo;
 		} catch (EmptyResultDataAccessException e) {
 			return null;
