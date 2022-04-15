@@ -46,7 +46,7 @@ public class LoginController {
 		// TODO パスワードとメールアドレスの組み合わせ存在チェック実装
 		System.out.println(selectedUserInfo);
 
-		if (selectedUserInfo.getEmail() == null) {
+		if (selectedUserInfo == null) {
 			model.addAttribute("errorMessage", "メールアドレスとパスワードが存在しません。");
 			return "login";
 		} else {

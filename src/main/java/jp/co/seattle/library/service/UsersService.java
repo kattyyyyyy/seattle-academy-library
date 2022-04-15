@@ -55,8 +55,7 @@ public class UsersService {
 			System.out.println(selectedUserInfo);
 			return selectedUserInfo;
 		} catch (EmptyResultDataAccessException e) {
-			UserInfo nullUserInfo = new UserInfo();
-			return nullUserInfo;
+			return null;
 		}
 
 	}
