@@ -93,24 +93,16 @@ public class AddBooksController {
         
         List<String> list = new ArrayList<String>();
         if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
-        	list.add("必須項目を入力してください。");
+        	list.add("<p>必須項目を入力してください。</p>");
         }
         
         if(!(publishDate.matches("^[0-9]{8}"))) {
-        	if(list.size() > 0) {
-        		list.add("</br>出版日は半角数字のYYYYMMDD形式で入力してください。");
-        	} else {
-        		list.add("出版日は半角数字のYYYYMMDD形式で入力してください。");
-        	}
+        	list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください。</p>");
         	
         }
         
         if(isbnCode.length() != 0 && !(isbnCode.matches("^[0-9]{10}|[0-9]{13}"))) {
-        	if(list.size() > 0) {
-        		list.add("</br>ISBNの桁数または半角数字が正しくありません。");
-        	} else {
-        		list.add("ISBNの桁数または半角数字が正しくありません。");
-        	}
+        	list.add("<p>ISBNの桁数または半角数字が正しくありません。</p>");
         }
         
         if(list.size() > 0) {
@@ -125,9 +117,9 @@ public class AddBooksController {
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
-         
         bookInfo.setBookId(booksService.targetBook());
         model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookInfo.getBookId()));
         return "details";
-    }    
+    }
+    
 }
