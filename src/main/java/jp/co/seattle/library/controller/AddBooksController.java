@@ -22,7 +22,7 @@ import jp.co.seattle.library.service.ThumbnailService;
  */
 @Controller //APIの入り口
 public class AddBooksController {
-    final static Logger logger = LoggerFactory.getLogger(AddBooksController.class);
+	final static Logger logger = LoggerFactory.getLogger(AddBooksController.class);
 
     @Autowired
     private BooksService booksService;
@@ -52,16 +52,21 @@ public class AddBooksController {
             @RequestParam("title") String title,
             @RequestParam("author") String author,
             @RequestParam("publisher") String publisher,
+            @RequestParam("publish_date") String publishDate,
+            @RequestParam("isbn") String isbnCode,
+            @RequestParam("detail_text") String detailText,
             @RequestParam("thumbnail") MultipartFile file,
             Model model) {
-        logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
-
-        // パラメータで受け取った書籍情報をDtoに格納する。
+    	logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
+    	
         BookDetailsInfo bookInfo = new BookDetailsInfo();
         bookInfo.setTitle(title);
         bookInfo.setAuthor(author);
         bookInfo.setPublisher(publisher);
-
+        bookInfo.setPublishDate(publishDate);
+        bookInfo.setIsbn(isbnCode);
+        bookInfo.setText(detailText);
+        
         // クライアントのファイルシステムにある元のファイル名を設定する
         String thumbnail = file.getOriginalFilename();
 
@@ -83,15 +88,45 @@ public class AddBooksController {
                 return "addBook";
             }
         }
+        
+        
+        String errorMessage = "";
+        if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
+        	errorMessage += "必須項目を入力してください。";
+        }
+        
+        if(!(publishDate.matches("^[0-9]{8}"))) {
+        	if(errorMessage.length() > 0) {
+        		errorMessage += "</br>出版日は半角数字のYYYYMMDD形式で入力してください。";
+        	} else {
+        		errorMessage += "出版日は半角数字のYYYYMMDD形式で入力してください。";
+        	}
+        	
+        }
+        
+        if(isbnCode.length() != 0 && !(isbnCode.matches("^[0-9]{10}|[0-9]{13}"))) {
+        	if(errorMessage.length() > 0) {
+        		errorMessage += "</br>ISBNの桁数または半角数字が正しくありません。";
+        	} else {
+        		errorMessage += "ISBNの桁数または半角数字が正しくありません。";
+        	}
+        }
+        
+        if(errorMessage.length() > 0) {
+        	model.addAttribute("addErrorMeserge", errorMessage);
+        	model.addAttribute("bookInfo", bookInfo);
+        	return "addBook";
+        }
 
         // 書籍情報を新規登録する
         booksService.registBook(bookInfo);
-
         model.addAttribute("resultMessage", "登録完了");
 
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
+         
+        bookInfo.setBookId(booksService.targetBook());
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookInfo.getBookId()));
         return "details";
-    }
-
+    }    
 }

@@ -40,6 +40,9 @@
                     <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
                 </div>
                 <div class="content_right">
+                    <c:if test="${!empty addErrorMeserge}">
+                        <div class="error">${addErrorMeserge}</div>
+                    </c:if>
                     <div>
                         <span>書籍名</span><span class="care care2">必須</span>
                         <c:if test="${!empty bookInfo}">
@@ -67,6 +70,33 @@
                             <input type="text" name="publisher">
                         </c:if>
                     </div>
+                    <div>
+                        <span>出版日</span><span class="care care2">必須</span>
+                        <c:if test="${!empty bookInfo}">
+                            <input type="text" name="publish_date" value="${bookInfo.publishDate}">
+                        </c:if>
+                        <c:if test="${empty bookInfo}">
+                            <input type="text" name="publish_date" placeholder="YYYYMMDD">
+                        </c:if>
+                    </div>
+                    <div>
+                        <span>ISBN</span><span class="care care1">任意</span>
+                        <c:if test="${!empty bookInfo}">
+                            <input type="text" name="isbn" value="${bookInfo.isbn}">
+                        </c:if>
+                        <c:if test="${empty bookInfo}">
+                            <input type="text" name="isbn">
+                        </c:if>
+                    </div>
+                    <div>
+                        <span>説明文</span><span class="care care1">任意</span>
+                        <c:if test="${!empty bookInfo}">
+                            <input type="text" name="detail_text" value="${bookInfo.text}">
+                        </c:if>
+                        <c:if test="${empty bookInfo}">
+                            <input type="text" name="detail_text">
+                        </c:if>
+                    </div>
                     <input type="hidden" id="bookId" name="bookId" value="${bookInfo.bookId}">
                 </div>
             </div>
@@ -74,7 +104,6 @@
                 <button type="submit" id="add-btn" class="btn_addBook">登録</button>
             </div>
         </form>
-        </div>
     </main>
 </body>
 </html>
