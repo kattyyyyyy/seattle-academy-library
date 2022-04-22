@@ -25,5 +25,4 @@ public class BookInfoRowMapper implements RowMapper<BookInfo> {
 		bookInfo.setThumbnail(rs.getString("thumbnail_url"));
 		return bookInfo;
 	}
-
 }
