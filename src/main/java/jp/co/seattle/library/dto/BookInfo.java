@@ -9,7 +9,6 @@ import lombok.Data;
  */
 @Configuration
 @Data
-
 public class BookInfo {
 
     private int bookId;
