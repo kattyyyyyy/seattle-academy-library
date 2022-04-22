@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -89,31 +91,30 @@ public class AddBooksController {
             }
         }
         
-        
-        String errorMessage = "";
+        List<String> list = new ArrayList<String>();
         if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
-        	errorMessage += "必須項目を入力してください。";
+        	list.add("必須項目を入力してください。");
         }
         
         if(!(publishDate.matches("^[0-9]{8}"))) {
-        	if(errorMessage.length() > 0) {
-        		errorMessage += "</br>出版日は半角数字のYYYYMMDD形式で入力してください。";
+        	if(list.size() > 0) {
+        		list.add("</br>出版日は半角数字のYYYYMMDD形式で入力してください。");
         	} else {
-        		errorMessage += "出版日は半角数字のYYYYMMDD形式で入力してください。";
+        		list.add("出版日は半角数字のYYYYMMDD形式で入力してください。");
         	}
         	
         }
         
         if(isbnCode.length() != 0 && !(isbnCode.matches("^[0-9]{10}|[0-9]{13}"))) {
-        	if(errorMessage.length() > 0) {
-        		errorMessage += "</br>ISBNの桁数または半角数字が正しくありません。";
+        	if(list.size() > 0) {
+        		list.add("</br>ISBNの桁数または半角数字が正しくありません。");
         	} else {
-        		errorMessage += "ISBNの桁数または半角数字が正しくありません。";
+        		list.add("ISBNの桁数または半角数字が正しくありません。");
         	}
         }
         
-        if(errorMessage.length() > 0) {
-        	model.addAttribute("addErrorMeserge", errorMessage);
+        if(list.size() > 0) {
+        	model.addAttribute("addErrorMessage", list);
         	model.addAttribute("bookInfo", bookInfo);
         	return "addBook";
         }

@@ -40,8 +40,12 @@
                     <input type="file" accept="image/*" name="thumbnail" id="thumbnail">
                 </div>
                 <div class="content_right">
-                    <c:if test="${!empty addErrorMeserge}">
-                        <div class="error">${addErrorMeserge}</div>
+                    <c:if test="${!empty addErrorMessage}">
+                        <div class="error">
+                            <c:forEach var="errorMessage" items="${addErrorMessage}">
+                                ${errorMessage}
+                            </c:forEach>
+                        </div>
                     </c:if>
                     <div>
                         <span>書籍名</span><span class="care care2">必須</span>
