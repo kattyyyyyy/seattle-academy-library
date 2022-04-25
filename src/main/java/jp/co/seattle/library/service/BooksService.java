@@ -61,18 +61,29 @@ public class BooksService {
      * @param bookInfo 書籍情報
      */
     public void registBook(BookDetailsInfo bookInfo) {
-
-        String sql = "INSERT INTO books (title, author,publisher,publish_date, thumbnail_name,thumbnail_url,reg_date,upd_date, text, isbn) VALUES ('"
-        		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "','"
-                + bookInfo.getThumbnailName() + "','"
-                + bookInfo.getThumbnailUrl() + "',"
-                + "now(),"
-                + "now(),'"
-                + bookInfo.getText()
-                + "','"
-                + bookInfo.getIsbn()
-                + "');";
-
+    	
+    	String sql = "";
+    	if(bookInfo.getThumbnailUrl() != null) {
+    		sql = "INSERT INTO books (title, author,publisher,publish_date, thumbnail_name,thumbnail_url,reg_date,upd_date, text, isbn) VALUES ('"
+            		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "','"
+                    + bookInfo.getThumbnailName() + "','"
+                    + bookInfo.getThumbnailUrl() + "',"
+                    + "now(),"
+                    + "now(),'"
+                    + bookInfo.getText()
+                    + "','"
+                    + bookInfo.getIsbn()
+                    + "');";
+    	} else {
+    		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
+            		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
+                    + "now(),"
+                    + "now(),'"
+                    + bookInfo.getText()
+                    + "','"
+                    + bookInfo.getIsbn()
+                    + "');";
+    	}
         jdbcTemplate.update(sql);
     }
     
@@ -93,12 +104,9 @@ public class BooksService {
      */
     public int targetBook() {
     	
-    	String sql = "SELECT id FROM books "
-    			+ "ORDER BY id DESC "
-    			+ "LIMIT 1;";
+    	String sql = "SELECT MAX(id) FROM books;";
     	
     	int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
     	return bookId;
-    	
     }
 }
