@@ -75,10 +75,8 @@ public class BooksService {
                     + bookInfo.getIsbn()
                     + "');";
     	} else {
-    		sql = "INSERT INTO books (title, author,publisher,publish_date, thumbnail_name,thumbnail_url,reg_date,upd_date, text, isbn) VALUES ('"
+    		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
             		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
-                    + bookInfo.getThumbnailName() + ","
-                    + bookInfo.getThumbnailUrl() + ","
                     + "now(),"
                     + "now(),'"
                     + bookInfo.getText()
