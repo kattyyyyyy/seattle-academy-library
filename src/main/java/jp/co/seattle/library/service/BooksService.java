@@ -73,7 +73,7 @@ public class BooksService {
                     + bookInfo.getText()
                     + "','"
                     + bookInfo.getIsbn()
-                    + "');g";
+                    + "');";
     	} else {
     		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
             		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
