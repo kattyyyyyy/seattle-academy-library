@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>書籍の詳細｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
+<title>書籍の編集｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
 <link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
@@ -55,39 +55,27 @@
                     </c:if>
                     <div>
                         <span>書籍名</span><span class="care care2">必須</span>
-                        <c:if test="${!empty bookEditInfo}">
+                        
                             <input type="text" name="title" value="${bookEditInfo.title}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="title" autocomplete="off">
-                        </c:if>
+                        
                     </div>
                     <div>
                         <span>著者名</span><span class="care care2">必須</span>
-                        <c:if test="${!empty bookEditInfo}">
+                        
                             <input type="text" name="author" value="${bookEditInfo.author}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="author" autocomplete="off">
-                        </c:if>
+                        
                     </div>
                     <div>
                         <span>出版社</span><span class="care care2">必須</span>
-                        <c:if test="${!empty bookEditInfo}">
+                        
                             <input type="text" name="publisher" value="${bookEditInfo.publisher}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="publisher">
-                        </c:if>
+                        
                     </div>
                     <div>
                         <span>出版日</span><span class="care care2">必須</span>
-                        <c:if test="${!empty bookEditInfo}">
+                        
                             <input type="text" name="publish_date" value="${bookEditInfo.publishDate}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="publish_date" placeholder="YYYYMMDD">
-                        </c:if>
+                        
                     </div>
                     <div>
                         <span>ISBN</span><span class="care care1">任意</span>
