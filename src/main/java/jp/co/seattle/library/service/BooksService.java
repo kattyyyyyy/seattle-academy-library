@@ -1,5 +1,6 @@
 package jp.co.seattle.library.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -164,5 +165,24 @@ public class BooksService {
     	
     	
     	jdbcTemplate.update(sql);
+    }
+    
+    public List<String> validationCheck(String title, String author, String publisher, String publishDate, String isbnCode){
+    	List<String> list = new ArrayList<String>();
+        if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
+        	list.add("<p>必須項目を入力してください。</p>");
+        }
+        
+        if(!(publishDate.matches("^[0-9]{8}"))) {
+        	list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください。</p>");
+        	
+        }
+        
+        if(isbnCode.length() != 0 && !(isbnCode.matches("^[0-9]{10}|[0-9]{13}"))) {
+        	list.add("<p>ISBNの桁数または半角数字が正しくありません。</p>");
+        }
+        
+		return list;
+    	
     }
 }

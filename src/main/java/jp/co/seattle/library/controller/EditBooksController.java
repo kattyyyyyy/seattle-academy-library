@@ -99,18 +99,7 @@ public class EditBooksController {
         }
     	
         List<String> list = new ArrayList<String>();
-        if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
-        	list.add("<p>必須項目を入力してください。</p>");
-        }
-        
-        if(!(publishDate.matches("^[0-9]{8}"))) {
-        	list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください。</p>");
-        	
-        }
-        
-        if(isbnCode.length() != 0 && !(isbnCode.matches("^[0-9]{10}|[0-9]{13}"))) {
-        	list.add("<p>ISBNの桁数または半角数字が正しくありません。</p>");
-        }
+        list = booksService.validationCheck(title, author, publisher, publishDate, isbnCode);
         
         if(list.size() > 0) {
         	model.addAttribute("editErrorMessage", list);
