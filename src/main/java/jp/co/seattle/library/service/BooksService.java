@@ -73,7 +73,7 @@ public class BooksService {
                     + bookInfo.getText()
                     + "','"
                     + bookInfo.getIsbn()
-                    + "');";
+                    + "');g";
     	} else {
     		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
             		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
@@ -108,5 +108,61 @@ public class BooksService {
     	
     	int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
     	return bookId;
+    }
+    
+    public void updateBook(BookDetailsInfo bookInfo) {
+    	
+    	String sql = "";
+    	if(bookInfo.getThumbnailUrl() != null) {
+    		sql = "UPDATE books SET title = '"
+        			+ bookInfo.getTitle()
+        			+ "', author = '"
+        			+ bookInfo.getAuthor()
+        			+ "', publisher = '"
+        			+ bookInfo.getPublisher()
+        			+ "', publish_date = '"
+        			+ bookInfo.getPublishDate()
+        			+ "', thumbnail_name = '"
+        			+ bookInfo.getThumbnailName()
+        			+ "', thumbnail_url = '"
+        			+ bookInfo.getThumbnailUrl()
+        			+ "', reg_date = "
+        			+ "now()"
+        			+ ", upd_date = "
+                    + "now()"
+        			+ ", text = '"
+                    + bookInfo.getText()
+                    + "', isbn = '"
+                    + bookInfo.getIsbn()
+                    + "'"
+                    + " WHERE id = "
+                    + bookInfo.getBookId()
+                    + ";";
+    		
+    	} else {
+    		sql = "UPDATE books SET title = '"
+        			+ bookInfo.getTitle()
+        			+ "', author = '"
+        			+ bookInfo.getAuthor()
+        			+ "', publisher = '"
+        			+ bookInfo.getPublisher()
+        			+ "', publish_date = '"
+        			+ bookInfo.getPublishDate()
+        			+ "', reg_date = "
+        			+ "now()"
+        			+ ", upd_date = "
+                    + "now()"
+        			+ ", text = '"
+                    + bookInfo.getText()
+                    + "', isbn = '"
+                    + bookInfo.getIsbn()
+                    + "'"
+                    + " WHERE id = "
+                    + bookInfo.getBookId()
+                    + ";";
+    	}
+    	
+    	
+    	jdbcTemplate.update(sql);
     }
 }
