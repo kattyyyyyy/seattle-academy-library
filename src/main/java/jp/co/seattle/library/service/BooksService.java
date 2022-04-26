@@ -85,7 +85,8 @@ public class BooksService {
                     + bookInfo.getIsbn()
                     + "');";
     	}
-        jdbcTemplate.update(sql);
+    	jdbcTemplate.update(sql);
+        
     }
     
     /**
@@ -127,9 +128,7 @@ public class BooksService {
         			+ bookInfo.getThumbnailName()
         			+ "', thumbnail_url = '"
         			+ bookInfo.getThumbnailUrl()
-        			+ "', reg_date = "
-        			+ "now()"
-        			+ ", upd_date = "
+        			+ "', upd_date = "
                     + "now()"
         			+ ", text = '"
                     + bookInfo.getText()
@@ -148,10 +147,8 @@ public class BooksService {
         			+ "', publisher = '"
         			+ bookInfo.getPublisher()
         			+ "', publish_date = '"
-        			+ bookInfo.getPublishDate()
-        			+ "', reg_date = "
-        			+ "now()"
-        			+ ", upd_date = "
+        			+ bookInfo.getPublishDate() 
+        			+ "', upd_date = "
                     + "now()"
         			+ ", text = '"
                     + bookInfo.getText()
