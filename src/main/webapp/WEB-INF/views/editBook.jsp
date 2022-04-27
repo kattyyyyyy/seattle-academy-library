@@ -30,7 +30,7 @@
         </div>
     </header>
     <main>
-        <form action="correntBook" method="post" enctype="multipart/form-data" id="data_upload_form">
+        <form action="correctBook" method="post" enctype="multipart/form-data" id="data_upload_form">
             <h1>書籍の編集</h1>
             <div class="content_body add_book_content">
                 <div class="content_left">
@@ -54,46 +54,22 @@
                         </div>
                     </c:if>
                     <div>
-                        <span>書籍名</span><span class="care care2">必須</span>
-                        
-                            <input type="text" name="title" value="${bookEditInfo.title}">
-                        
+                        <span>書籍名</span><span class="care care2">必須</span> <input type="text" name="title" value="${bookEditInfo.title}">
                     </div>
                     <div>
-                        <span>著者名</span><span class="care care2">必須</span>
-                        
-                            <input type="text" name="author" value="${bookEditInfo.author}">
-                        
+                        <span>著者名</span><span class="care care2">必須</span> <input type="text" name="author" value="${bookEditInfo.author}">
                     </div>
                     <div>
-                        <span>出版社</span><span class="care care2">必須</span>
-                        
-                            <input type="text" name="publisher" value="${bookEditInfo.publisher}">
-                        
+                        <span>出版社</span><span class="care care2">必須</span> <input type="text" name="publisher" value="${bookEditInfo.publisher}">
                     </div>
                     <div>
-                        <span>出版日</span><span class="care care2">必須</span>
-                        
-                            <input type="text" name="publish_date" value="${bookEditInfo.publishDate}">
-                        
+                        <span>出版日</span><span class="care care2">必須</span> <input type="text" name="publish_date" value="${bookEditInfo.publishDate}">
                     </div>
                     <div>
-                        <span>ISBN</span><span class="care care1">任意</span>
-                        <c:if test="${!empty bookEditInfo}">
-                            <input type="text" name="isbn" value="${bookEditInfo.isbn}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="isbn">
-                        </c:if>
+                        <span>ISBN</span><span class="care care1">任意</span> <input type="text" name="isbn" value="${bookEditInfo.isbn}">
                     </div>
                     <div>
-                        <span>説明文</span><span class="care care1">任意</span>
-                        <c:if test="${!empty bookEditInfo}">
-                            <input type="text" name="detail_text" value="${bookEditInfo.text}">
-                        </c:if>
-                        <c:if test="${empty bookEditInfo}">
-                            <input type="text" name="detail_text">
-                        </c:if>
+                        <span>説明文</span><span class="care care1">任意</span> <input type="text" name="detail_text" value="${bookEditInfo.text}">
                     </div>
                     <input type="hidden" id="bookId" name="bookId" value="${bookEditInfo.bookId}">
                 </div>

@@ -20,7 +20,7 @@ import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.ThumbnailService;
 
 /**
- * 詳細表示コントローラー
+ * 編集画面コントローラー
  */
 @Controller
 public class EditBooksController {
@@ -50,10 +50,17 @@ public class EditBooksController {
      * 編集画面に遷移する
      * @param locale
      * @param bookId
+     * @param title
+     * @param author
+     * @param publisher
+     * @param publishDate
+     * @param isbnCode
+     * @param detailText
+     * @param file
      * @param model
-     * @return
+     * @return 遷移先画面
      */
-    @RequestMapping(value = "/correntBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "/correctBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     public String correctBook(Locale locale,
     		@RequestParam("bookId") int bookId,
             @RequestParam("title") String title,
