@@ -103,8 +103,8 @@ public class AddBooksController {
         // 書籍情報を新規登録する
         // TODO 登録した書籍の詳細情報を表示するように実装
         //  詳細画面に遷移する
-        
-        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(booksService.registBook(bookInfo)));
+        int bookId = booksService.registBook(bookInfo);
+        model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
         model.addAttribute("resultMessage", "登録完了");
         return "details";
     }
