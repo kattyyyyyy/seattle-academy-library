@@ -61,7 +61,7 @@ public class BooksService {
      *
      * @param bookInfo 書籍情報
      */
-    public void registBook(BookDetailsInfo bookInfo) {
+    public int registBook(BookDetailsInfo bookInfo) {
     	
     	String sql = "";
     	if(bookInfo.getThumbnailUrl() != null) {
@@ -74,7 +74,7 @@ public class BooksService {
                     + bookInfo.getText()
                     + "','"
                     + bookInfo.getIsbn()
-                    + "');";
+                    + "') RETURNING id;";
     	} else {
     		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
             		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
@@ -83,10 +83,10 @@ public class BooksService {
                     + bookInfo.getText()
                     + "','"
                     + bookInfo.getIsbn()
-                    + "');";
+                    + "') RETURNING id;";
     	}
-    	jdbcTemplate.update(sql);
-        
+        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+        return bookId;
     }
     
     /**
