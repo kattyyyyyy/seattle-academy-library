@@ -64,28 +64,20 @@ public class BooksService {
     public int registBook(BookDetailsInfo bookInfo) {
     	
     	String sql = "";
+    	int bookId;
+    	
     	if(bookInfo.getThumbnailUrl() != null) {
-    		sql = "INSERT INTO books (title, author,publisher,publish_date, thumbnail_name,thumbnail_url,reg_date,upd_date, text, isbn) VALUES ('"
-            		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "','"
-                    + bookInfo.getThumbnailName() + "','"
-                    + bookInfo.getThumbnailUrl() + "',"
-                    + "now(),"
-                    + "now(),'"
-                    + bookInfo.getText()
-                    + "','"
-                    + bookInfo.getIsbn()
-                    + "') RETURNING id;";
+    		sql = "INSERT INTO books (title, author, publisher, publish_date, thumbnail_name, thumbnail_url,reg_date, upd_date, text, isbn) VALUES (?, ?, ?, ?, ?, ?, now(),now(), ?, ?) RETURNING id;";
+    		
+    		bookId = jdbcTemplate.queryForObject(sql, Integer.class, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
+    				bookInfo.getPublishDate(), bookInfo.getThumbnailName(), bookInfo.getThumbnailUrl(), bookInfo.getText(), bookInfo.getIsbn());
     	} else {
-    		sql = "INSERT INTO books (title, author,publisher,publish_date, reg_date,upd_date, text, isbn) VALUES ('"
-            		+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','" + bookInfo.getPublishDate() + "',"
-                    + "now(),"
-                    + "now(),'"
-                    + bookInfo.getText()
-                    + "','"
-                    + bookInfo.getIsbn()
-                    + "') RETURNING id;";
+    		sql = "INSERT INTO books (title, author, publisher, publish_date, reg_date, upd_date, text, isbn) VALUES (?, ?, ?, ?, now(),now(), ?, ?) RETURNING id;";
+    		
+    		bookId = jdbcTemplate.queryForObject(sql, Integer.class, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
+            		bookInfo.getPublishDate(), bookInfo.getText(), bookInfo.getIsbn());
     	}
-        int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
+        
         return bookId;
     }
     
@@ -116,52 +108,17 @@ public class BooksService {
     	
     	String sql = "";
     	if(bookInfo.getThumbnailUrl() != null) {
-    		sql = "UPDATE books SET title = '"
-        			+ bookInfo.getTitle()
-        			+ "', author = '"
-        			+ bookInfo.getAuthor()
-        			+ "', publisher = '"
-        			+ bookInfo.getPublisher()
-        			+ "', publish_date = '"
-        			+ bookInfo.getPublishDate()
-        			+ "', thumbnail_name = '"
-        			+ bookInfo.getThumbnailName()
-        			+ "', thumbnail_url = '"
-        			+ bookInfo.getThumbnailUrl()
-        			+ "', upd_date = "
-                    + "now()"
-        			+ ", text = '"
-                    + bookInfo.getText()
-                    + "', isbn = '"
-                    + bookInfo.getIsbn()
-                    + "'"
-                    + " WHERE id = "
-                    + bookInfo.getBookId()
-                    + ";";
+    		sql = "UPDATE books SET title = ?, author = ?, publisher = ?, publish_date = ?, thumbnail_name = ?, thumbnail_url = ?, reg_date = now(), upd_date = now(), text = ?, isbn = ? WHERE id = ? ;";
+    		
+    		jdbcTemplate.update(sql, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
+    				bookInfo.getPublishDate(), bookInfo.getThumbnailName(), bookInfo.getThumbnailUrl(), bookInfo.getText(), bookInfo.getIsbn(), bookInfo.getBookId());
     		
     	} else {
-    		sql = "UPDATE books SET title = '"
-        			+ bookInfo.getTitle()
-        			+ "', author = '"
-        			+ bookInfo.getAuthor()
-        			+ "', publisher = '"
-        			+ bookInfo.getPublisher()
-        			+ "', publish_date = '"
-        			+ bookInfo.getPublishDate() 
-        			+ "', upd_date = "
-                    + "now()"
-        			+ ", text = '"
-                    + bookInfo.getText()
-                    + "', isbn = '"
-                    + bookInfo.getIsbn()
-                    + "'"
-                    + " WHERE id = "
-                    + bookInfo.getBookId()
-                    + ";";
+    		sql = "UPDATE books SET title = ?, author = ?, publisher = ?, publish_date = ?, reg_date = now(), upd_date = now(), text = ?, isbn = ? WHERE id = ? ;";
+    		
+    		jdbcTemplate.update(sql, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
+            		bookInfo.getPublishDate(), bookInfo.getText(), bookInfo.getIsbn(), bookInfo.getBookId());
     	}
-    	
-    	
-    	jdbcTemplate.update(sql);
     }
     
     public List<String> validationCheck(String title, String author, String publisher, String publishDate, String isbnCode){
