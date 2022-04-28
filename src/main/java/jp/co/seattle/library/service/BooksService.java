@@ -92,18 +92,10 @@ public class BooksService {
     }
     
     /**
-     * 対象の書籍IDを取得する
+     * 書籍を更新する
      *
-     * @returen 書籍ID 
+     * @param bookInfo 書籍情報
      */
-    public int targetBook() {
-    	
-    	String sql = "SELECT MAX(id) FROM books;";
-    	
-    	int bookId = jdbcTemplate.queryForObject(sql, Integer.class);
-    	return bookId;
-    }
-    
     public void updateBook(BookDetailsInfo bookInfo) {
     	
     	String sql = "";
@@ -121,6 +113,15 @@ public class BooksService {
     	}
     }
     
+    /**
+     * バリデーションチェック
+     *
+     * @param title タイトル
+     * @param author 著者名
+     * @param publisher 出版社
+     * @param publishDate 出版日
+     * @param isbnCode ISBN
+     */
     public List<String> validationCheck(String title, String author, String publisher, String publishDate, String isbnCode){
     	List<String> list = new ArrayList<String>();
         if(title.equals("") || author.equals("") || publisher.equals("") || publishDate.length() == 0){
