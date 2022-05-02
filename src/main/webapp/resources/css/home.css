@@ -273,16 +273,20 @@ hr.border_add {
 }
 
 .bulk_form {
+	display: flex;
+  	flex-flow: column;
 	text-align: center;
 }
 .bulk_form h2{
 	margin-bottom:20px
 }
 .bulk_form .caution{
-	text-align:left;
-	margin:10px 0px 30px 400px;
+	margin:10px 0px 30px 0px;
 }
 .bulk_form .caution p{
+	text-align: center;
 	color:#fa8072;
 }
-
+.bulk_form .error{
+	margin: 20px 20% 0 20%;
+}
