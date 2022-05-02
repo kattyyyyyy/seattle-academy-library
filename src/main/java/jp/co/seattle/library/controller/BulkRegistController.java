@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +32,6 @@ public class BulkRegistController {
     @Autowired
     private BooksService booksService;
 
-    @Transactional
     @RequestMapping(value = "/bulkRegist", method = RequestMethod.GET)
     public String bulkBook(Locale locale) {
         // デバッグ用ログ
@@ -62,7 +60,8 @@ public class BulkRegistController {
             }
             
             while((line = buf.readLine()) != null) {
-            	count += 1;
+            	// 行数のインクリメント
+            	count++;
                 String split[] = line.split(",", -1);
                 
                 List<String> errorList = booksService.validationCheck(split[0], split[1], split[2], split[3], split[4]);
