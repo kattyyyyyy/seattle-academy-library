@@ -138,6 +138,5 @@ public class BooksService {
         }
         
 		return list;
-    	
     }
 }
