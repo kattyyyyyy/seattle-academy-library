@@ -87,16 +87,13 @@ public class BulkRegistController {
         BookDetailsInfo bookInfo = new BookDetailsInfo();
         
         for(int i = 0; i < booksList.size(); i++){
-        	bookList = booksList.get(i);
-
-        	for(int j = 0; j < booksList.get(i).length; j++) {        		
-        		bookInfo.setTitle(bookList[0]);
-        		bookInfo.setAuthor(bookList[1]);
-        		bookInfo.setPublisher(bookList[2]);
-        		bookInfo.setPublishDate(bookList[3]);
-        		bookInfo.setIsbn(bookList[4]);
-        		bookInfo.setText(bookList[5]);
-        	}
+        	bookList = booksList.get(i);        		
+    		bookInfo.setTitle(bookList[0]);
+    		bookInfo.setAuthor(bookList[1]);
+    		bookInfo.setPublisher(bookList[2]);
+    		bookInfo.setPublishDate(bookList[3]);
+    		bookInfo.setIsbn(bookList[4]);
+    		bookInfo.setText(bookList[5]);
         	booksService.registBook(bookInfo);
         }
         
