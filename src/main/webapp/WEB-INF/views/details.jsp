@@ -42,6 +42,11 @@
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
                     </a>
                 </div>
+                <c:if test="${!empty rentErrorMessage}">
+                    <div class="error">
+                        ${rentErrorMessage}
+                    </div>
+                </c:if>
             </div>
             <div class="content_right">
                 <div>
@@ -62,7 +67,7 @@
                 </div>
                 <div>
                     <span>ISBN</span>
-                    <p>${bookDetailsInfo.isbn}</p> 
+                    <p>${bookDetailsInfo.isbn}</p>
                 </div>
                 <div>
                     <span>説明文</span>
@@ -71,7 +76,7 @@
             </div>
         </div>
         <div class="edtDelBookBtn_box">
-            <form method="post" action="#">
+            <form method="post" action="rentBook">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
             </form>
             <form method="post" action="#">
