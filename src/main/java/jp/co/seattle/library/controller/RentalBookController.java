@@ -27,7 +27,7 @@ public class RentalBookController {
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
     public String rentBook(@RequestParam("bookId")int bookId,
     		Model model) {
-		if(rentalsService.getBookInfo(bookId) == 0) {
+		if(rentalsService.getRentInfo(bookId) == 0) {
 			
 			rentalsService.rentalBook(bookId);
 			return "redirect:/home";

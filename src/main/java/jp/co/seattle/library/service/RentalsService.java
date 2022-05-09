@@ -30,7 +30,7 @@ public class RentalsService {
 	 *
 	 * @param bookId 書籍ID
 	 */
-	public int getBookInfo(int bookId) {
+	public int getRentInfo(int bookId) {
 
 		String sql = "SELECT book_id FROM rentals where book_id =" + bookId;
 
