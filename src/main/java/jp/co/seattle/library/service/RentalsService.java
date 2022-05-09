@@ -32,10 +32,9 @@ public class RentalsService {
 	 */
 	public int getRentInfo(int bookId) {
 
-		String sql = "SELECT book_id FROM rentals where book_id =" + bookId;
-
+		String sql = "SELECT book_id FROM rentals where book_id = ?";
 		try {
-			int rentId = jdbcTemplate.queryForObject(sql, Integer.class);
+			int rentId = jdbcTemplate.queryForObject(sql, Integer.class, bookId);
 			return rentId;
 		} catch (Exception e) {
 			return 0;

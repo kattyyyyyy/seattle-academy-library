@@ -27,14 +27,13 @@ public class RentalBookController {
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
     public String rentBook(@RequestParam("bookId")int bookId,
     		Model model) {
+		
 		if(rentalsService.getRentInfo(bookId) == 0) {
-			
 			rentalsService.rentalBook(bookId);
-			return "redirect:/home";
-			
+		} else {
+			model.addAttribute("rentErrorMessage", "貸出し済みです。");
 		}
 		
-		model.addAttribute("rentErrorMessage", "貸出し済みです。");
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 		return "details";
 	}
