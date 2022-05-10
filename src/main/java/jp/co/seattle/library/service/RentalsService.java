@@ -40,4 +40,10 @@ public class RentalsService {
 			return 0;
 		}
 	}
+	
+	public void deleteBook(int bookId) {
+		
+		String sql = "DELETE FROM rentals WHERE book_id = ?";
+		jdbcTemplate.update(sql, bookId);
+	}
 }
