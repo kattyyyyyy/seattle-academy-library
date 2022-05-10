@@ -29,6 +29,7 @@ public class RentalsService {
 	 * 書籍をrentalsテーブルの情報を取得する
 	 *
 	 * @param bookId 書籍ID
+	 * @return rentId 書籍ID
 	 */
 	public int getRentInfo(int bookId) {
 
@@ -39,5 +40,16 @@ public class RentalsService {
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+	
+	/**
+	 * 書籍をrentalsテーブルから削除する
+	 *
+	 * @param bookId 書籍ID
+	 */
+	public void deleteBook(int bookId) {
+		
+		String sql = "DELETE FROM rentals WHERE book_id = ?";
+		jdbcTemplate.update(sql, bookId);
 	}
 }
