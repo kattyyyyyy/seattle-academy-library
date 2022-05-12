@@ -57,12 +57,23 @@ public class AccountController {
         userInfo.setEmail(email);
 
         // TODO バリデーションチェック、パスワード一致チェック実装
+        String errorMessage = null;
+        if(password.matches("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z]).*$") && password.length() >= 8) {
+        	if(!password.equals(passwordForCheck)) {
+        		errorMessage = "パスワードが一致しません。";
+        	}
+        } else {
+        	errorMessage = "パスワードは8文字以上かつ半角英数字に設定してください。";
+        }
 
+        if(errorMessage != null) {
+        	model.addAttribute("errorMessage", errorMessage);
+        	return "createAccount";
+        }
         userInfo.setPassword(password);
         usersService.registUser(userInfo);
 
-        model.addAttribute("bookList", booksService.getBookList());
-        return "home";
+        return "login";
     }
 
 }
