@@ -58,7 +58,7 @@ public class AccountController {
 
         // TODO バリデーションチェック、パスワード一致チェック実装
         String errorMessage = null;
-        if(password.matches("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z]).*$") && password.length() >= 8) {
+        if(!(password.matches("[0-9a-zA-Z]")) && password.length() >= 8) {
         	if(!password.equals(passwordForCheck)) {
         		errorMessage = "パスワードが一致しません。";
         	}
