@@ -53,7 +53,7 @@ public class BooksService {
 
         return bookDetailsInfo;
     }
-
+    
     /**
      * 書籍を登録する
      *
@@ -74,7 +74,7 @@ public class BooksService {
     		
     		bookId = jdbcTemplate.queryForObject(sql, Integer.class, bookInfo.getTitle(), bookInfo.getAuthor(), bookInfo.getPublisher(),
             		bookInfo.getPublishDate(), bookInfo.getText(), bookInfo.getIsbn());
-    	}
+    	} 
         
         return bookId;
     }
@@ -144,11 +144,16 @@ public class BooksService {
      * @param word 検索文字
      * @return 書籍リスト
      */
-    public List<BookInfo> getSearchBookInfo(String word) {
+    public List<BookInfo> getSearchBookInfo(String word, String search) {
+    	String sql = null;
+    	if(search.equals("partial")) {
+    		sql = "select id, title, author, publisher, publish_date, thumbnail_url from books where title like ? order by title";
+    		word = "%" + word + "%";
+    	} else {
+    		sql = "select id, title, author, publisher, publish_date, thumbnail_url from books where title = ? order by title";
+    	}
     	
-    	String sql = "select id, title, author, publisher, publish_date, thumbnail_url from books where title like '%" + word + "%' order by title";
-        
-    	List<BookInfo> getedSearchBookList = jdbcTemplate.query(sql,new BookInfoRowMapper());
+    	List<BookInfo> getedSearchBookList = jdbcTemplate.query(sql,new BookInfoRowMapper(), word);
     	
         return getedSearchBookList;
     	

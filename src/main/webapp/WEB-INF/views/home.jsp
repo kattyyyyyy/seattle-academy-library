@@ -29,6 +29,9 @@
             <h1>Home</h1>
             <form method="post" action="searchBook">
                 <div class="search">
+                    <p>
+                        <input type="radio" name="search" value="partial" checked>部分一致 <input type="radio" name="search" value="full">完全一致
+                    </p>
                     <input type="text" name="word" class="search_box"> <input type="submit" value="検索" class="search1" value="検索">
                 </div>
             </form>

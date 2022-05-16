@@ -20,9 +20,10 @@ public class SearchBookController {
 	
 	@RequestMapping(value = "/searchBook", method = RequestMethod.POST)
 	 public String searchBook(@RequestParam("word")String word,
-	    		Model model) {
+			 @RequestParam("search")String search,
+			 Model model) {
 		
-		model.addAttribute("bookList", booksService.getSearchBookInfo(word));
+		model.addAttribute("bookList", booksService.getSearchBookInfo(word, search));
 		return "home";
 		 
 	 }
