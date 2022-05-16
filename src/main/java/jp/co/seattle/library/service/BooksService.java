@@ -137,4 +137,20 @@ public class BooksService {
         
 		return list;
     }
+    
+    /**
+     * 書籍検索
+     *
+     * @param word 検索文字
+     * @return 書籍リスト
+     */
+    public List<BookInfo> getSearchBookInfo(String word) {
+    	
+    	String sql = "select id, title, author, publisher, publish_date, thumbnail_url from books where title like '%" + word + "%' order by title";
+        
+    	List<BookInfo> getedSearchBookList = jdbcTemplate.query(sql,new BookInfoRowMapper());
+    	
+        return getedSearchBookList;
+    	
+    }
 }
