@@ -29,6 +29,8 @@ public class BookDetailsInfo {
     private String isbn;
     
     private String text;
+    
+    private String rentStatus;
 
     public BookDetailsInfo() {
 
