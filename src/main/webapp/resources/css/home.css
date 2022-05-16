@@ -74,6 +74,12 @@ input {
 	display: flex;
 }
 
+.row .search p {
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
 .search_box {
     border: 1px solid #000;
     margin-right: 10px;
