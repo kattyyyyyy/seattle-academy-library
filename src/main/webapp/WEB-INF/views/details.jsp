@@ -76,6 +76,7 @@
         </div>
         <div class="edtDelBookBtn_box">
             <form method="post" action="rentBook">
+                <input type="hidden" value="${bookDetailsInfo.title}" name="title">
                 <button type="submit" value="${bookDetailsInfo.bookId}" name="bookId" class="btn_rentBook">借りる</button>
             </form>
             <form method="post" action="returnBook">
