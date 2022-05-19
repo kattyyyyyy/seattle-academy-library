@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.RentalInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentalsService;
 
@@ -25,8 +26,9 @@ public class ReturnBookController {
     public String returnBook(@RequestParam("bookId")int bookId,
     		Model model) {
 		
-		if(rentalsService.getRentInfo(bookId) != 0) {
-			rentalsService.deleteBook(bookId);
+		RentalInfo rentalInfo = rentalsService.getRentInfo(bookId);
+		if(rentalInfo.getRentDate() != null) {
+			rentalsService.updateReturnBook(bookId);
 		} else {
 			model.addAttribute("rentErrorMessage", "貸出しされていません。");
 		}

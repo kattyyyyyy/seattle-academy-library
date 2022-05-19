@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.RentalInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentalsService;
 
 /**
- * 貸し出しコントローラー
+ * 貸出コントローラー
  */
 @Controller
 public class RentalBookController {
@@ -26,12 +27,20 @@ public class RentalBookController {
 	
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
     public String rentBook(@RequestParam("bookId")int bookId,
+    		@RequestParam("title")String title,
     		Model model) {
 		
-		if(rentalsService.getRentInfo(bookId) == 0) {
-			rentalsService.rentalBook(bookId);
+		RentalInfo rentalInfo = rentalsService.getRentInfo(bookId);
+		
+		if(rentalInfo == null) {
+			rentalsService.rentalBook(bookId, title);
 		} else {
-			model.addAttribute("rentErrorMessage", "貸出し済みです。");
+			if(rentalInfo.getRentDate() != null) {
+				model.addAttribute("rentErrorMessage", "貸出し済みです。");
+			} else {
+				rentalsService.updateRentalBook(bookId);
+			}
+			
 		}
 		
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
