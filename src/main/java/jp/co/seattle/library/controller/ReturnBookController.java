@@ -27,11 +27,12 @@ public class ReturnBookController {
     		Model model) {
 		
 		RentalInfo rentalInfo = rentalsService.getRentInfo(bookId);
-		if(rentalInfo.getRentDate() != null) {
+		if(rentalInfo != null && rentalInfo.getRentDate() != null) {
 			rentalsService.updateReturnBook(bookId);
 		} else {
 			model.addAttribute("rentErrorMessage", "貸出しされていません。");
 		}
+		
 		
 		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 		return "details";
