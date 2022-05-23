@@ -27,13 +27,12 @@ public class RentalBookController {
 	
 	@RequestMapping(value = "/rentBook", method = RequestMethod.POST)
     public String rentBook(@RequestParam("bookId")int bookId,
-    		@RequestParam("title")String title,
     		Model model) {
 		
 		RentalInfo rentalInfo = rentalsService.getRentInfo(bookId);
 		
 		if(rentalInfo == null) {
-			rentalsService.rentalBook(bookId, title);
+			rentalsService.rentalBook(bookId);
 		} else {
 			if(rentalInfo.getRentDate() != null) {
 				model.addAttribute("rentErrorMessage", "貸出し済みです。");

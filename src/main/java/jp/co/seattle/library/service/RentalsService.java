@@ -29,7 +29,7 @@ public class RentalsService {
 	 */
 	public RentalInfo getRentInfo(int bookId) {
 
-		String sql = "SELECT book_id, title, rent_date, return_date FROM rentals where book_id = ?";
+		String sql = "SELECT rentals.book_id, rentals.rent_date, rentals.return_date, books.title from rentals LEFT join books ON rentals.book_id = books.id where rentals.book_id = ?;";
 		try {
 			RentalInfo rentalInfo = jdbcTemplate.queryForObject(sql, new RentalInfoRowMapper(), bookId);
 			return rentalInfo;
@@ -45,7 +45,7 @@ public class RentalsService {
 	 * @return rentList 貸出リスト
 	 */
 	public List<RentalInfo> getRentList(){
-		String sql = "SELECT book_id, title, rent_date, return_date FROM rentals ORDER BY title";
+		String sql = "SELECT rentals.book_id, rentals.rent_date, rentals.return_date, books.title from rentals LEFT join books ON rentals.book_id = books.id ORDER BY books.title";
 		List<RentalInfo> rentList = jdbcTemplate.query(sql, new RentalInfoRowMapper());
 		
 		return rentList;
@@ -57,10 +57,10 @@ public class RentalsService {
 	 * @param bookId 書籍ID
 	 * @param title タイトル
 	 */
-	public void rentalBook(int bookId, String title) {
+	public void rentalBook(int bookId) {
 		
-		String sql = "INSERT INTO rentals (book_id, rent_date, title) VALUES (?, now(), ?)";
-		jdbcTemplate.update(sql, bookId, title);
+		String sql = "INSERT INTO rentals (book_id, rent_date) VALUES (?, now())";
+		jdbcTemplate.update(sql, bookId);
 	}
 	
 	/**
