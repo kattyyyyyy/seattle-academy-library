@@ -154,7 +154,7 @@ img.book_noimg, img.book_img{
     font-size: 12px;
 }
 
-a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_rentBook,button.btn_returnBook,button.btn_bulkRegist {
+a.btn_add_book,a.btn_bulk_book, button.btn_addBook,button.btn_editBook, button.btn_deleteBook,button.btn_rentBook,button.btn_returnBook,button.btn_bulkRegist, a.btn_rent_book {
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
@@ -185,6 +185,9 @@ button.btn_returnBook {
 }
 button.btn_bulkRegist {
 	background-color: #FF9966;
+}
+a.btn_rent_book {
+	background-color: orange;
 }
 
 a:hover, button:hover {
@@ -303,4 +306,9 @@ hr.border_add {
 }
 .bulk_form .error{
 	margin: 20px 20% 0 20%;
+}
+
+.rent_table {
+	padding: 0 10% 0 10%;
+	
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.co.seattle.library.dto.RentalInfo;
 import jp.co.seattle.library.service.BooksService;
 import jp.co.seattle.library.service.RentalsService;
 
@@ -37,7 +38,8 @@ public class DeleteBookController {
             @RequestParam("bookId") Integer bookId,
             Model model) {
         
-		if(rentalsService.getRentInfo(bookId) == 0) {
+    	RentalInfo rentlInfo = rentalsService.getRentInfo(bookId);
+		if(rentlInfo.getRentDate() == null) {
 			booksService.deleteBook(bookId);
 		} else {
 			model.addAttribute("rentErrorMessage", "貸出しされているため削除できません。");
