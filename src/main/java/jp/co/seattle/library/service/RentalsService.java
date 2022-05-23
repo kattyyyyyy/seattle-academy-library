@@ -83,14 +83,4 @@ public class RentalsService {
 		String sql = "UPDATE rentals SET rent_date = null, return_date = now() WHERE book_id = ?";
 		jdbcTemplate.update(sql, bookId);
 	}
-	
-	/**
-	 * rentalsテーブルの書籍を削除する
-	 * 
-	 * @param bookId 書籍ID
-	 */
-	public void deleteRent(int bookId) {
-		String sql = "DELETE FROM rentals WHERE book_id = ?;";
-    	jdbcTemplate.update(sql, bookId);
-	}
 }
